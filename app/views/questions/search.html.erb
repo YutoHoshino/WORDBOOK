@@ -1,0 +1,10 @@
+<h1><%= "”#{(params[:search])}”" %>の検索結果</h1>
+
+<% if @questions.present?%>
+  <%= render('index') %>
+<% else %>
+  <h5>検索結果がありません</h5>
+<% end %>
+
+
+<div><%= link_to "戻る", questions_path %></div>

@@ -1,0 +1,27 @@
+<h1>単語の詳細</h1>
+<table class="table">
+  <tr>
+    <th scope="col">登録単語</th>
+    <th scope="col">単語の説明</th>
+    <th scope="col">類義語</th>
+    <th scope="col">修正</th>
+    <th scope="col">削除</th>
+  </tr>
+  <tr>
+    <th scope="row"><%= @question.question %></th>
+    <td><%= @question.description %></td>
+
+    <td>
+      <% @question.question_similars.each do |similar|%>
+        <%= similar.similar_word %><br>
+      <% end %>
+    </td>
+    <td><%= link_to "修正する", edit_question_path(@question.id) %></td>
+    <td><%= link_to "削除する",  "/questions/#{@question.id}", method: :delete %></td>
+</table>
+
+
+
+<div class="form-group">
+  <%= link_to "戻る", questions_path %>
+</div>
