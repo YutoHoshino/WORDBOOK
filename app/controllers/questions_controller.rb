@@ -15,8 +15,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: '単語を登録しました' }
-        format.json { render :show, status: :created, location: @question }
+        format.html { redirect_to questions_path, notice: '単語を登録しました' }
+        format.json { render :index, status: :created, location: @question }
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -34,8 +34,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.update(params_question)
-        format.html { redirect_to @question, notice: '更新しました' }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to questions_path, notice: '更新しました' }
+        format.json { render :index, status: :ok, location: @question }
       else
         format.html { render :edit }
         format.json { render json: @question.errors, status: :unprocessable_entity }
