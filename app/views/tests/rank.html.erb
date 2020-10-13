@@ -23,10 +23,15 @@
     <% rate_array << rank.highest_rate %>
     <% rank_array << index %>
     <tr>
-      <% if rank.highest_rate.present? %>
-          <th class="<%= "current" if current_user == rank %>" scope="row"><%= index %>位</th>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
-          <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
+      <% if session[:correct_answer].present? && session[:answer_rate].present? %>
+        <th class="<%= "current" if current_user == rank %>" scope="row"><%= index %>位</th>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
+      <% elsif rank.highest_rate.present? %>
+        <% index -= 1%>
+        <th class="<%= "current" if current_user == rank %>" scope="row"><%= index %>位</th>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.name %></td>
+        <td class="<%= "current" if current_user == rank %>"><%= rank.highest_rate %>%</td>
       <% end %>
     </tr>
   <% end %>

@@ -2,7 +2,7 @@ class TestsController < ApplicationController
   def new
     # 問題の変数
     session[:array] = []
-    @questions = Question.all.sample(20)
+    @questions = Question.all.sample()
     @description = [@questions[0],@questions[1],@questions[2]]
     @question = @description[1]
     
@@ -20,9 +20,6 @@ class TestsController < ApplicationController
   end
 
   def create
-
-    puts 'ここに表示されます'
-    puts (params[:question]).nil?
 
 
     if (params[:question]).nil?
@@ -99,21 +96,22 @@ class TestsController < ApplicationController
   def rank
 
     @rank = User.order(highest_rate: "DESC")
-    puts @rank.index(current_user)
+  
     only_ranks = @rank.map(&:highest_rate)
 
-    #ハイスコアのみ取得
-    only_ranks = (only_ranks << session[:answer_rate]).sort.reverse
-    @current_rank = only_ranks.index(session[:answer_rate]) + 1
-
-    # フラッシュメッセージ
+    
     if session[:correct_answer].present? && session[:answer_rate].present?
 
+
+      #ハイスコアのみ取得
+      only_ranks = (only_ranks << session[:answer_rate]).sort.reverse
+      @current_rank = only_ranks.index(session[:answer_rate]) + 1
+
+      # フラッシュメッセージ
       flash.now[:notice] = "お疲れ様でした!
       あなたの成績は、5問中#{session[:correct_answer]}問正解！！
       正解率#{session[:answer_rate]}%で、あなたの順位は#{@current_rank}位です"
 
     end
-
   end
 end
