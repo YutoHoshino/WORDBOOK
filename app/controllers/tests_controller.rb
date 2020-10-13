@@ -2,7 +2,7 @@ class TestsController < ApplicationController
   def new
     # 問題の変数
     session[:array] = []
-    @questions = Question.all.sample()
+    @questions = Question.all.sample(100)
     @description = [@questions[0],@questions[1],@questions[2]]
     @question = @description[1]
     
